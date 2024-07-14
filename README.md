@@ -1,1 +1,1 @@
-# A-Simple-Payment-API-with-Dockerization
+# A Simple Payment API with Dockerization
