@@ -1,0 +1,12 @@
+Manually Execute the SQL Script
+
+1. Copy the script into the container:
+docker cp mssql-init/init-database.sql container_name:/init-database.sql
+example:
+docker cp mssql-init/init-database.sql fullstackwebapi-mssql-1:/init-database.sql
+
+2. Connect to the SQL Server container and run the script:
+docker exec -it container_name /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P YourStrong!Passw0rd -i /init-database.sql
+example:
+docker exec -it fullstackwebapi-mssql-1 /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P YourStrong!Passw0rd -i /init-database.sql
+

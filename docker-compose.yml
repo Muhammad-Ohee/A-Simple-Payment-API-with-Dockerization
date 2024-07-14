@@ -1,0 +1,35 @@
+services:
+  paymentapi:
+    build:
+      context: ./PaymentAPI
+      dockerfile: Dockerfile
+    ports:
+      - "5000:8080"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    depends_on:
+      - mssql
+
+  paymentapp:
+    build:
+      context: ./PaymentApp
+      dockerfile: Dockerfile
+    ports:
+      - "8044:80"
+    depends_on:
+      - paymentapi
+
+  mssql:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    environment:
+      SA_PASSWORD: "YourStrong!Passw0rd"
+      ACCEPT_EULA: "Y"
+      MSSQL_PID: "Developer"
+    ports:
+      - "1433:1433"
+    volumes:
+      - mssqldata:/var/opt/mssql
+      - ./mssql-init:/docker-entrypoint-initdb.d
+
+volumes:
+  mssqldata:
